@@ -1,5 +1,3 @@
-import { useState, useEffect, useCallback } from "react";
-import api from "../services/api";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -9,39 +7,16 @@ import DoorDashFavorite from "../components/DoorDashFavorite";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router";
+import { useContext } from "react";
+import { CountryContext } from "../Contexts/Context";
 
-function Home() {
+function Home({ props }) {
   const navigate = useNavigate();
-  const [countries, setCountries] = useState([]);
+  const loading = false;
 
-  const [loading, setLoading] = useState(false);
-
-  const loadCountries = useCallback(() => {
-    setLoading(true);
-    api
-      .get("/all/")
-      .then((response) => {
-        console.log(response);
-        setCountries(
-          response.data.map((item) => {
-            return {
-              ...item,
-              id: item.cioc,
-            };
-          })
-        );
-      })
-      .catch((err) => {
-        console.error("ops! ocorreu um erro : " + err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    loadCountries();
-  }, [loadCountries]);
+  const { countries } = useContext(CountryContext);
+  // console.log("params", CountryContext());
+  console.log("countries", countries);
 
   const goToDetail = (id) => () => {
     navigate(`/countries/${id}`);
@@ -70,8 +45,8 @@ function Home() {
                 spacing={{ xs: 1, md: 2 }}
                 columns={{ xs: 4, sm: 8, md: 16 }}
               >
-                {items.map(() => (
-                  <Grid item xs={1} sm={4} md={4}>
+                {items.map((id) => (
+                  <Grid item xs={1} sm={4} md={4} key={id}>
                     <DoorDashFavorite />
                   </Grid>
                 ))}
@@ -84,7 +59,7 @@ function Home() {
                   columns={{ xs: 6, sm: 12, md: 16 }}
                 >
                   {countries.map((country) => (
-                    <Grid item xs={3} sm={4} md={4}>
+                    <Grid item xs={3} sm={4} md={4} key={country.id}>
                       <Card
                         sx={{
                           maxWidth: 300,
