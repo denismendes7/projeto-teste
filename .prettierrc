@@ -1,0 +1,1 @@
+{"format": "prettier --write \"src/**/*.{js,jsx}\""}
