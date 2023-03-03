@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import DoorDashFavorite from "../components/DoorDashFavorite";
+import Header from "../components/Header";
 import { Button } from "@mui/material";
 
 import Box from "@mui/material/Box";
@@ -55,6 +56,7 @@ function Details() {
 
   return (
     <>
+      <Header />
       <main>
         <Grid
           container

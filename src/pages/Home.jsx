@@ -9,12 +9,13 @@ import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router";
 import { useContext } from "react";
 import { CountryContext } from "../Contexts/Context";
+import Header from "../components/Header";
 
 function Home({ props }) {
   const navigate = useNavigate();
   const loading = false;
 
-  const { countries } = useContext(CountryContext);
+  const { countriesToShow: countries } = useContext(CountryContext);
   // console.log("params", CountryContext());
   console.log("countries", countries);
 
@@ -26,7 +27,12 @@ function Home({ props }) {
 
   return (
     <>
-      <main>
+      <Header showSearch={true} />
+      <main
+        style={{
+          padding: 10,
+        }}
+      >
         <Grid
           container
           // spacing={{ xs: 3, md: 1 }}
@@ -53,13 +59,9 @@ function Home({ props }) {
               </Grid>
             ) : (
               <Box sx={{ flexGrow: 1 }}>
-                <Grid
-                  container
-                  spacing={{ xs: 4, md: 8 }}
-                  columns={{ xs: 6, sm: 12, md: 16 }}
-                >
+                <Grid container spacing={3} columns={{ xs: 6, sm: 12, md: 16 }}>
                   {countries.map((country) => (
-                    <Grid item xs={3} sm={4} md={4} key={country.id}>
+                    <Grid item key={country.id}>
                       <Card
                         sx={{
                           maxWidth: 300,

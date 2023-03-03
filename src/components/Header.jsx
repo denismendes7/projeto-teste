@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useContext } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import { CountryContext } from "../Contexts/Context";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,7 +52,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({ showSearch }) {
+  const { onSearch } = useContext(CountryContext);
+
   return (
     <Box sx={{ flexGrow: 1, height: 100 }}>
       <AppBar position="fixed" sx={{ padding: 2, backgroundColor: "black" }}>
@@ -80,15 +83,21 @@ export default function SearchAppBar() {
           >
             Countries
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          {showSearch && (
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                onChange={(ev) => {
+                  const text = ev.target.value;
+                  onSearch(text);
+                }}
+              />
+            </Search>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

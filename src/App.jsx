@@ -8,8 +8,6 @@ import { CountryProvider } from "./Contexts/Context";
 export default function App() {
   return (
     <>
-      <Header />
-
       <CountryProvider>
         <Routes>
           <Route path="/countries/:id" element={<Details />} />
