@@ -67,11 +67,12 @@ function Home({ props }) {
                           textAlign: "center",
                           borderRadius: 2,
                           boxShadow: 5,
+                          cursor: "pointer",
                         }}
                         key={country.id}
                         onClick={goToDetail(country.id)}
                       >
-                        <CardMedia sx={{ height: 200, borderRadius: 10 }}>
+                        <CardMedia sx={{ height: 200 }}>
                           <img
                             src={country.flag}
                             width={"100%"}
