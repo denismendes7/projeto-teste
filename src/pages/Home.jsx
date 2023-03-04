@@ -15,7 +15,7 @@ function Home({ props }) {
   const navigate = useNavigate();
 
   const { countriesToShow: countries, loading } = useContext(CountryContext);
-  // console.log("params", CountryContext());
+
   console.log("countries", countries);
 
   const goToDetail = (id) => () => {
@@ -32,11 +32,7 @@ function Home({ props }) {
           padding: 10,
         }}
       >
-        <Grid
-          container
-          // spacing={{ xs: 3, md: 1 }}
-          // columns={{ xs: 1, sm: 2, md: 8 }}
-        >
+        <Grid container>
           <div>
             <h1>
               <Typography style={{ margin: 20 }}>

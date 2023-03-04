@@ -53,7 +53,7 @@ function Details() {
           <Grid item>
             <CardMedia
               sx={{
-                height: 300,
+                height: 270,
                 marginLeft: 5,
                 marginTop: 3,
               }}
@@ -61,7 +61,7 @@ function Details() {
               <img
                 src={country.flag}
                 width={"100%"}
-                height={270}
+                height={200}
                 alt={country.name}
                 loading="lazy"
               />
