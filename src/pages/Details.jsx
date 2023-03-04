@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { CountryContext } from "../Contexts/Context";
 import { useParams } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
+import { borderRadius } from "@mui/system";
 
 function Details() {
   const navigate = useNavigate();
@@ -34,8 +35,20 @@ function Details() {
         >
           <Grid item xs={12} sm={12} md={12}>
             <Typography variant="h4">
-              <Button onClick={goToHome}>
-                <ArrowBack color="black" />
+              <Button
+                style={{
+                  backgroundColor: "black",
+                  margin: 10,
+                  borderRadius: 30,
+                }}
+                onClick={goToHome}
+              >
+                <ArrowBack
+                  style={{
+                    color: "white",
+                  }}
+                  color="white"
+                />
               </Button>
               <strong>Details of Countries</strong>
             </Typography>
@@ -53,7 +66,7 @@ function Details() {
           <Grid item>
             <CardMedia
               sx={{
-                height: 270,
+                height: 250,
                 marginLeft: 5,
                 marginTop: 3,
               }}
@@ -61,7 +74,7 @@ function Details() {
               <img
                 src={country.flag}
                 width={"100%"}
-                height={200}
+                height={190}
                 alt={country.name}
                 loading="lazy"
               />

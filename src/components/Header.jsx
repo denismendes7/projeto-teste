@@ -12,7 +12,7 @@ import { CountryContext } from "../Contexts/Context";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: 30,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -33,6 +33,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  borderRadius: 30,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
