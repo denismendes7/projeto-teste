@@ -18,6 +18,10 @@ export const CountryProvider = ({ children }) => {
           return {
             ...item,
             id: item.numericCode,
+            languages: item.languages
+              ? item.languages[0].name
+              : "Sem linguagem",
+            currencies: item.currencies ? item.currencies[0].name : "Sem Moeda",
           };
         });
         setCountriesToShow(items);

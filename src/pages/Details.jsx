@@ -82,6 +82,14 @@ function Details() {
               <strong>Região: </strong>
               {country.region}
             </Typography>
+            <Typography variant="body2" color="text.secondary" padding={2}>
+              <strong>Liguagem: </strong>
+              {country.languages}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" padding={2}>
+              <strong>Moeda: </strong>
+              {country.currencies}
+            </Typography>
           </Grid>
         </Grid>
       </main>
