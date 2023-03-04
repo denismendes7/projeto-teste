@@ -17,7 +17,7 @@ export const CountryProvider = ({ children }) => {
         const items = response.data.map((item) => {
           return {
             ...item,
-            id: item.cioc,
+            id: item.numericCode,
           };
         });
         setCountriesToShow(items);

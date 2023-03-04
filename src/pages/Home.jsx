@@ -13,9 +13,8 @@ import Header from "../components/Header";
 
 function Home({ props }) {
   const navigate = useNavigate();
-  const loading = false;
 
-  const { countriesToShow: countries } = useContext(CountryContext);
+  const { countriesToShow: countries, loading } = useContext(CountryContext);
   // console.log("params", CountryContext());
   console.log("countries", countries);
 

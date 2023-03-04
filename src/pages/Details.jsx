@@ -1,58 +1,25 @@
-import { useState, useEffect, useCallback } from "react";
-import api from "../services/api";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+import { useContext } from "react";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import DoorDashFavorite from "../components/DoorDashFavorite";
 import Header from "../components/Header";
 import { Button } from "@mui/material";
-
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router";
+import { CountryContext } from "../Contexts/Context";
+import { useParams } from "react-router-dom";
+import { ArrowBack } from "@mui/icons-material";
 
 function Details() {
   const navigate = useNavigate();
-  const [countries, setCountries] = useState([]);
 
-  const [loading, setLoading] = useState(false);
+  const { countriesToShow: countries } = useContext(CountryContext);
+  const { id } = useParams();
 
-  const loadCountries = useCallback(() => {
-    setLoading(true);
-    api
-      .get("/all/")
-      .then((response) => {
-        console.log(response);
-        setCountries(
-          response.data.map((item) => {
-            return {
-              ...item,
-              id: item.cioc,
-            };
-          })
-        );
-      })
-      .catch((err) => {
-        console.error("ops! ocorreu um erro : " + err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    loadCountries();
-  }, [loadCountries]);
-
-  const goToDetail = (id) => () => {
-    navigate(`/countries/${id}`);
-  };
-
-  const goToHome = () => () => {
+  const goToHome = () => {
     navigate(`/countries/`);
   };
-  const items = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  const country = countries.find((country) => country.id === id) || {};
 
   return (
     <>
@@ -60,85 +27,62 @@ function Details() {
       <main>
         <Grid
           container
-          // spacing={{ xs: 3, md: 1 }}
-          // columns={{ xs: 1, sm: 2, md: 8 }}
+          justifyContent={"space-between"}
+          style={{
+            marginTop: 20,
+          }}
         >
-          <Grid item xs={3} sm={4} md={4}>
-            <Typography style={{ margin: 20 }}>
-              {" "}
-              <h1>Details of Countries</h1>
+          <Grid item xs={12} sm={12} md={12}>
+            <Typography variant="h4">
+              <Button onClick={goToHome}>
+                <ArrowBack color="black" />
+              </Button>
+              <strong>Details of Countries</strong>
             </Typography>
           </Grid>
-
-          <Grid
-            item
-            xs={2}
-            sm={4}
-            md={8}
-            sx={{ display: "flex", justifyContent: "flex-end" }}
-          >
-            <Button
-              style={{
-                display: "flex",
-                width: 150,
-                justifyItems: "flex-end",
-                margin: 30,
-                backgroundColor: "black",
-                color: "white",
+        </Grid>
+        <Grid
+          container
+          xs={6}
+          sm={6}
+          md={6}
+          style={{
+            marginTop: 20,
+          }}
+        >
+          <Grid item>
+            <CardMedia
+              sx={{
+                height: 300,
+                marginLeft: 5,
+                marginTop: 3,
               }}
-              onClick={goToHome()}
             >
-              Back
-            </Button>
+              <img
+                src={country.flag}
+                width={"100%"}
+                height={270}
+                alt={country.name}
+                loading="lazy"
+              />
+            </CardMedia>
           </Grid>
-
-          {loading ? (
-            <Grid
-              container
-              spacing={{ xs: 2, md: 4 }}
-              columns={{ xs: 6, sm: 12, md: 16 }}
-            >
-              {items.map(() => (
-                <Grid item xs={3} sm={4} md={4}>
-                  <DoorDashFavorite />
-                </Grid>
-              ))}
-            </Grid>
-          ) : (
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid
-                container
-                spacing={{ xs: 4, md: 8 }}
-                columns={{ xs: 6, sm: 12, md: 16 }}
-              >
-                {countries.map((country) => (
-                  <Grid item xs={3} sm={4} md={4}>
-                    <Card
-                      sx={{
-                        maxWidth: 350,
-                        height: 200,
-                        textAlign: "center",
-                        borderRadius: 50,
-                        boxShadow: 5,
-                      }}
-                      key={country.id}
-                      onClick={goToDetail(country.id)}
-                    >
-                      <CardMedia sx={{ height: 230, borderRadius: 10 }}>
-                        <img
-                          src={country.flag}
-                          width={350}
-                          height={230}
-                          alt={country.name}
-                          loading="lazy"
-                        />
-                      </CardMedia>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
-          )}
+          <Grid item>
+            <Typography gutterBottom variant="h6" component="div" padding={3}>
+              <strong>{country.name}</strong>
+            </Typography>
+            <Typography variant="body2" color="text.secondary" padding={2}>
+              <strong>Capital: </strong> {country.capital}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" padding={2}>
+              <strong>População: </strong>
+              {country.population}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" padding={2}>
+              <strong>Região: </strong>
+              {country.region}
+            </Typography>
+          </Grid>
         </Grid>
       </main>
     </>
